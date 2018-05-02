@@ -32,7 +32,7 @@ class game{
 		}
 };
 
-class minesweeper: public game{
+class Minesweeper: public game{
 
 	private:
 
@@ -44,7 +44,7 @@ class minesweeper: public game{
 
 	public:
 
-		minesweeper(string name, int width, int height, int mines_count) : game(name)
+		Minesweeper(string name, int width, int height, int mines_count) : game(name)
 		{
 			x=width;
 			y=height;
@@ -103,7 +103,7 @@ class minesweeper: public game{
 				cout<< i << ' ';
 				for (int j=0; j<x; j++)
 				{
-					cout << selected_squares[i][j] << ' ';
+					cout << selected_squares[i][j] << '.';
 				}
 				cout<< endl;
 			}
@@ -127,7 +127,7 @@ class minesweeper: public game{
 					return true;
 				}
 			}
-			selected_squares[y][x]= '.';
+			selected_squares[y][x]= '*';
 			set_score();
 			return false;
 		}
@@ -149,7 +149,36 @@ int main(){
 	cout<<"Please enter the amount of bombs between 1 and 10 you like on your board: " << endl;
 	cin>> mines_count;
 	cout<< endl;
-
+	
+	Minesweeper minesweeper (name, width, height, mines_count);
+	
+	cout<< "You are currnetly playing " << minesweeper.get_name() << endl;
+	minesweeper.print();
+	
+	while(true)
+	{
+		cout<<"Please enter coordinates :" << endl;
+		cout<<"x coordinate =";
+		cin>>x;
+		cout<< endl;
+		cout<<"y coodinate =";
+		cin>>y;
+		cout<<endl;
+		
+		if (y>=height || x>=width)
+		{
+			cout<< "You have selected a location that does not exist please try new coordinates " <<  endl;
+		}else
+			
+		if (minesweeper.get_sqaure(x,y)){
+			minesweeper.print();
+			
+			cout<<"Game over! Your score is: " << minesweeper.get_score()<< '.'<< endl;
+			break;
+		}
+		
+		minesweeper.print();
+	}
 
 
 	return 0;
